@@ -1,4 +1,6 @@
 const getRandomInt = (min, max) => {
+  min = Math.abs(Math.floor(min));
+  max = Math.abs(Math.floor(max));
   if (min === max) {
     return min;
   }
@@ -8,6 +10,8 @@ const getRandomInt = (min, max) => {
 getRandomInt(1, 90);
 
 const getRandomFloat = (min, max, symbolNumber) => {
+  min = Math.abs(min);
+  max = Math.abs(max);
   if (min === max) {
     return min.toFixed(symbolNumber);
   }
