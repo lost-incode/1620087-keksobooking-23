@@ -3,9 +3,21 @@ const similarAdTemplate = document.querySelector('#card').content.querySelector(
 
 const insertToPageSimilarAd = (author, offer) => {
   const adElement = similarAdTemplate.cloneNode(true);
-  (offer.title) ? adElement.querySelector('.popup__title').textContent = offer.title : adElement.querySelector('.popup__title').remove();
-  (offer.adress) ? adElement.querySelector('.popup__text--address').textContent = offer.adress : adElement.querySelector('.popup__text--address').remove();
-  (offer.price) ? adElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь` : adElement.querySelector('.popup__text--price').remove();
+  if (offer.title) {
+    adElement.querySelector('.popup__title').textContent = offer.title;
+  } else {
+    adElement.querySelector('.popup__title').remove();
+  }
+  if (offer.adress) {
+    adElement.querySelector('.popup__text--address').textContent = offer.adress;
+  } else {
+    adElement.querySelector('.popup__text--address').remove();
+  }
+  if (offer.price) {
+    adElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
+  } else {
+    adElement.querySelector('.popup__text--price').remove();
+  }
   if (offer.type) {
     let offerType;
     switch(offer.type){
@@ -29,8 +41,16 @@ const insertToPageSimilarAd = (author, offer) => {
   } else {
     adElement.querySelector('.popup__type').remove();
   }
-  ((offer.rooms) && (offer.guests)) ? adElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей` : adElement.querySelector('.popup__text--capacity').remove();
-  ((offer.checkin) && (offer.checkout)) ? adElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}` : adElement.querySelector('.popup__text--time').remove();
+  if ((offer.rooms) && (offer.guests)) {
+    adElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
+  } else {
+    adElement.querySelector('.popup__text--capacity').remove();
+  }
+  if ((offer.checkin) && (offer.checkout)) {
+    adElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
+  } else {
+    adElement.querySelector('.popup__text--time').remove();
+  }
   if (offer.features.length > 0) {
     const featuresOffer = adElement.querySelector('.popup__features');
     const modifiers = offer.features.map((feature) => `popup__feature--${feature}`);
@@ -43,7 +63,11 @@ const insertToPageSimilarAd = (author, offer) => {
   } else {
     adElement.querySelector('.popup__features').remove();
   }
-  (offer.description) ? adElement.querySelector('.popup__description').textContent = offer.description : adElement.querySelector('.popup__description').remove();
+  if (offer.description) {
+    adElement.querySelector('.popup__description').textContent = offer.description;
+  } else {
+    adElement.querySelector('.popup__description').remove();
+  }
   if (offer.photos.length > 0) {
     const photosAd = adElement.querySelector('.popup__photos');
     offer.photos.forEach((photoSrc) => {
@@ -55,7 +79,11 @@ const insertToPageSimilarAd = (author, offer) => {
   } else {
     adElement.querySelector('.popup__photos').remove();
   }
-  (author.avatar) ? adElement.querySelector('.popup__avatar').src = author.avatar : adElement.querySelector('.popup__avatar').remove();
+  if (author.avatar) {
+    adElement.querySelector('.popup__avatar').src = author.avatar;
+  } else {
+    adElement.querySelector('.popup__avatar').remove();
+  }
   mapCanvas.appendChild(adElement);
 };
 
