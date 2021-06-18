@@ -41,11 +41,9 @@ const insertToPageSimilarAd = (author, offer) => {
     adElement.querySelector('.popup__text--time').remove();
   }
   if (offer.features.length > 0) {
-    const featuresOffer = adElement.querySelector('.popup__features');
-    const modifiers = offer.features.map((feature) => `popup__feature--${feature}`);
-    featuresOffer.querySelectorAll('.popup__feature').forEach((item) => {
-      const modifier = item.classList[1];
-      if (!modifiers.includes(modifier)) {
+    const featuresOffer = adElement.querySelectorAll('.popup__feature');
+    featuresOffer.forEach((item) => {
+      if (offer.features.indexOf(item.classList[1].replace('popup__feature--', '')) === -1) {
         item.remove();
       }
     });
