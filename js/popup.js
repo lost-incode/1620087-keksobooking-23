@@ -1,5 +1,12 @@
 const mapCanvas = document.querySelector('.map__canvas');
 const similarAdTemplate = document.querySelector('#card').content.querySelector('.popup');
+const offerTypeTranslation = {
+  'flat': 'Квартира',
+  'bungalow': 'Бунгало',
+  'house': 'Дом',
+  'palace': 'Дворец',
+  'hotel': 'Отель',
+};
 
 const insertToPageSimilarAd = (author, offer) => {
   const adElement = similarAdTemplate.cloneNode(true);
@@ -19,25 +26,7 @@ const insertToPageSimilarAd = (author, offer) => {
     adElement.querySelector('.popup__text--price').remove();
   }
   if (offer.type) {
-    let offerType;
-    switch(offer.type){
-      case 'flat':
-        offerType = 'Квартира';
-        break;
-      case 'bungalow':
-        offerType = 'Бунгало';
-        break;
-      case 'house':
-        offerType = 'Дом';
-        break;
-      case 'palace':
-        offerType = 'Дворец';
-        break;
-      case 'hotel':
-        offerType = 'Отель';
-        break;
-    }
-    adElement.querySelector('.popup__type').textContent = offerType;
+    adElement.querySelector('.popup__type').textContent = offerTypeTranslation[offer.type];
   } else {
     adElement.querySelector('.popup__type').remove();
   }
