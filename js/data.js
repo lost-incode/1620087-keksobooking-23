@@ -1,4 +1,4 @@
-import {getRandomInt, getRandomFloat} from 'util.js';
+import {getRandomInt, getRandomFloat} from './util.js';
 
 const OFFER_TYPES = [
   'palace',
@@ -42,7 +42,7 @@ const createOffer = () => {
   const randomOfferTypesIndex = getRandomInt(0, OFFER_TYPES.length - 1);
   const randomOfferCheckinIndex = getRandomInt(0, OFFER_TIMES.length - 1);
   const randomOfferCheckoutIndex = getRandomInt(0, OFFER_TIMES.length - 1);
-  const randomOfferFeaturesLength = getRandomInt(0, OFFER_FEATURES.length - 1);
+  const randomOfferFeaturesLength = getRandomInt(1, OFFER_FEATURES.length - 1);
   const randomOfferPhotosLength = getRandomInt(1, OFFER_PHOTOS.length - 1);
   const randomlocationLat = getRandomFloat(35.65000, 35.70000, 5);
   const randomlocationLng = getRandomFloat(139.70000, 139.80000, 5);

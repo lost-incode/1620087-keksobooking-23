@@ -1,7 +1,10 @@
-import {createAd} from 'data.js';
+import {createAd} from './data.js';
+import {insertToPageSimilarAd} from './popup.js';
+
+document.body.style.fill = 'red';
 
 const SIMILAR_OBJECT_COUNT = 10;
 let userNumber = 1;
 
-const similarAd = new Array(SIMILAR_OBJECT_COUNT).fill(null).map(() => createAd(userNumber++));
-similarAd;
+const similarAds = new Array(SIMILAR_OBJECT_COUNT).fill(null).map(() => createAd(userNumber++));
+similarAds.forEach(({author, offer}) => insertToPageSimilarAd(author, offer));
