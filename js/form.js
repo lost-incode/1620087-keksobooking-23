@@ -10,7 +10,16 @@ const titleInput = adForm.querySelector('#title');
 const priceInput = adForm.querySelector('#price');
 const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
+const type = adForm.querySelector('#type');
 const guestNumber = capacity.querySelectorAll('option');
+
+const MinPrices = {
+  'bungalow': 0,
+  'flat': 1000,
+  'hotel': 3000,
+  'house': 5000,
+  'palace': 10000,
+};
 
 const NumberOfGuests = {
   1: ['1'],
@@ -33,17 +42,19 @@ titleInput.addEventListener('input', () => {
   titleInput.reportValidity();
 });
 
-priceInput.addEventListener('input', () => {
-  const priceValue = priceInput.value;
+const validatePrices = () => {
+  const typeValue = type.value;
+  priceInput.min = MinPrices[typeValue];
+  priceInput.placeholder = MinPrices[typeValue];
+};
 
-  if (priceValue > MAX_PRICE_VALUE) {
-    priceInput.setCustomValidity(`Цена за ночь не может превышать ${MAX_PRICE_VALUE} руб.`);
-  } else {
-    titleInput.setCustomValidity('');
-  }
+validatePrices();
 
-  priceInput.reportValidity();
-});
+const onTypeChange = () => {
+  validatePrices();
+};
+
+type.addEventListener('change', onTypeChange);
 
 const validateRooms = () => {
   const roomValue = roomNumber.value;
