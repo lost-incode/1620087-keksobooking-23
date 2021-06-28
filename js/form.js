@@ -6,11 +6,20 @@ const mapFiltersForm = document.querySelector('.map__filters');
 const fieldsetsAdForm = adForm.querySelectorAll('fieldset');
 const elementsMapFiltersForm = mapFiltersForm.querySelectorAll('fieldset, select');
 const titleInput = adForm.querySelector('#title');
+const timeIn = adForm.querySelector('#timein');
+const timeOut = adForm.querySelector('#timeout');
+const timeOutOptions = timeOut.querySelectorAll('option');
 const priceInput = adForm.querySelector('#price');
 const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const type = adForm.querySelector('#type');
 const guestNumber = capacity.querySelectorAll('option');
+
+const Times = {
+  '12:00': ['12:00'],
+  '13:00': ['13:00'],
+  '14:00': ['14:00'],
+};
 
 const MinPrices = {
   'bungalow': 0,
@@ -40,6 +49,22 @@ titleInput.addEventListener('input', () => {
 
   titleInput.reportValidity();
 });
+
+const validateTimes = () => {
+  const timeInValue = timeIn.value;
+  timeOut.value = Times[timeInValue][0];
+  timeOutOptions.forEach((timeOutOption) => {
+    timeOutOption.selected = Times[timeInValue][0] === timeOutOption.value;
+  });
+};
+
+validateTimes();
+
+const onTimeInChange = () => {
+  validateTimes();
+};
+
+timeIn.addEventListener('change', onTimeInChange);
 
 const validatePrices = () => {
   const typeValue = type.value;
