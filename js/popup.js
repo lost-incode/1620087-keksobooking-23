@@ -1,4 +1,3 @@
-const mapCanvas = document.querySelector('.map__canvas');
 const similarAdTemplate = document.querySelector('#card').content.querySelector('.popup');
 const offerTypeTranslation = {
   'flat': 'Квартира',
@@ -8,7 +7,7 @@ const offerTypeTranslation = {
   'hotel': 'Отель',
 };
 
-const insertToPageSimilarAd = (author, offer) => {
+const createSimilarAdElement = (author, offer) => {
   const adElement = similarAdTemplate.cloneNode(true);
   if (offer.title) {
     adElement.querySelector('.popup__title').textContent = offer.title;
@@ -71,7 +70,7 @@ const insertToPageSimilarAd = (author, offer) => {
   } else {
     adElement.querySelector('.popup__avatar').remove();
   }
-  mapCanvas.appendChild(adElement);
+  return adElement;
 };
 
-export {insertToPageSimilarAd};
+export {createSimilarAdElement};
