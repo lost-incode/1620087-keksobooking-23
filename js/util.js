@@ -1,19 +1,11 @@
 import {createSimilarAdElement} from './popup.js';
-import {validateTimeIn, validatePrices, validateRooms} from './valid-form.js';
-import {LAT_DEFAULT, LNG_DEFAULT, map, pinIcon} from './map.js';
+import {resetForm} from './user-form.js';
+import {map, pinIcon} from './map.js';
+import {LAT_DEFAULT, LNG_DEFAULT} from './data.js';
 const mapCanvas = document.querySelector('.map__canvas');
 const errorMessage = document.querySelector('#error-message').content.querySelector('.error-message');
 const successSubmitForm = document.querySelector('#success').content.querySelector('.success');
 const errorSubmitForm = document.querySelector('#error').content.querySelector('.error');
-// const resetButton = document.querySelector('.ad-form__reset');
-
-const resetForm = (lat, lng) => {
-  document.querySelector('.ad-form').reset();
-  document.querySelector('#address').value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-  validateTimeIn();
-  validatePrices();
-  validateRooms();
-};
 
 const getDataOnSuccess = (data) => {
   Array.from(data).forEach(({author, offer, location}) => {
@@ -40,7 +32,7 @@ const getDataOnError = (err) => {
 const sendDataOnSuccess = () => {
   const successElement = successSubmitForm.cloneNode(true);
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape' || evt.key === 'Esc' || evt.keyCode === 27) {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
       successElement.remove();
       resetForm(LAT_DEFAULT, LNG_DEFAULT);
     }
@@ -55,7 +47,7 @@ const sendDataOnSuccess = () => {
 const sendDataOnError = () => {
   const errorElement = errorSubmitForm.cloneNode(true);
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape' || evt.key === 'Esc' || evt.keyCode === 27) {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
       errorElement.remove();
     }
   });
@@ -65,4 +57,4 @@ const sendDataOnError = () => {
   document.body.append(errorElement);
 };
 
-export {resetForm, getDataOnSuccess, getDataOnError, sendDataOnSuccess, sendDataOnError};
+export {getDataOnSuccess, getDataOnError, sendDataOnSuccess, sendDataOnError};

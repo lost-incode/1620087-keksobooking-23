@@ -1,6 +1,5 @@
 import {deactivateForm, activateForm} from './valid-form.js';
-const LAT_DEFAULT = 35.6894;
-const LNG_DEFAULT = 139.692;
+import {LAT_DEFAULT, LNG_DEFAULT} from './data.js';
 document.querySelector('#address').value = `${LAT_DEFAULT.toFixed(5)}, ${LNG_DEFAULT.toFixed(5)}`;
 
 deactivateForm();
@@ -47,4 +46,4 @@ mainPinMarker.on('moveend', () => {
   document.querySelector('#address').value = `${mainPinMarker.getLatLng().lat.toFixed(5)}, ${mainPinMarker.getLatLng().lng.toFixed(5)}`;
 });
 
-export {LAT_DEFAULT, LNG_DEFAULT, map, pinIcon};
+export {map, mainPinMarker, pinIcon};
