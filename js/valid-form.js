@@ -14,12 +14,6 @@ const capacity = adForm.querySelector('#capacity');
 const type = adForm.querySelector('#type');
 const guestNumber = capacity.querySelectorAll('option');
 
-// const Times = {
-//   '12:00': ['12:00'],
-//   '13:00': ['13:00'],
-//   '14:00': ['14:00'],
-// };
-
 const MinPrices = {
   'bungalow': 0,
   'flat': 1000,
@@ -123,4 +117,4 @@ const activateForm = () => {
   elementsMapFiltersForm.forEach((element) => element.disabled = false);
 };
 
-export {deactivateForm, activateForm};
+export {deactivateForm, activateForm, validateTimeIn, validatePrices, validateRooms};
