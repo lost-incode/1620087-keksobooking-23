@@ -3,21 +3,38 @@ import {mainPinMarker, map} from './map.js';
 import {LAT_DEFAULT, LNG_DEFAULT} from './data.js';
 import {request} from './api.js';
 const adForm = document.querySelector('.ad-form');
+const adFormHeaderPreviewInput = adForm.querySelector('#avatar');
+const adFormHeaderPreview = adForm.querySelector('.ad-form-header__preview');
 const adFormPhoto = adForm.querySelector('.ad-form__photo');
 const adFormPhotoInput = adForm.querySelector('#images');
+const IMAGE_WIDTH = 70;
+const IMAGE_HEIGHT = 70;
 
-const previewFile = () => {
+const onPreviewAvatar = () => {
+  const image = adFormHeaderPreview.querySelector('img');
+  const file = adFormHeaderPreviewInput.files[0];
+  const reader = new FileReader();
+
+  reader.addEventListener('load', () => {
+    image.src= reader.result;
+  }, false);
+
+  reader.readAsDataURL(file);
+};
+
+adFormHeaderPreviewInput.addEventListener('change', () => onPreviewAvatar());
+
+const onPreviewImage = () => {
   if (adFormPhoto.firstChild) {
     adFormPhoto.removeChild(adFormPhoto.firstChild);
   }
   const image = document.createElement('img');
-  image.width = 70;
-  image.height = 70;
+  image.width = IMAGE_WIDTH;
+  image.height = IMAGE_HEIGHT;
   const file = adFormPhotoInput.files[0];
   const reader = new FileReader();
 
   reader.addEventListener('load', () => {
-    // convert image file to base64 string
     image.src= reader.result;
   }, false);
 
@@ -25,14 +42,7 @@ const previewFile = () => {
   adFormPhoto.appendChild(image);
 };
 
-adFormPhotoInput.addEventListener('change', () => previewFile());
-
-// adFormPhotoInput.addEventListener('change', (evt) => {
-//   const fileList = evt.target.files;
-//   const image = document.createElement('img');
-//   image.title = `${escape(fileList[0].name)}`;
-//   image.src=`${evt.target.result}`;
-
+adFormPhotoInput.addEventListener('change', () => onPreviewImage());
 
 const setUserFormSubmit = (onSuccess, onError) => {
   adForm.addEventListener('submit', (evt) => {
