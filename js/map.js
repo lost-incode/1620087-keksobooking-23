@@ -70,4 +70,4 @@ const getDataOnSuccess = (data) => {
   adverts.slice(0, MAX_OFFERS).forEach((advert) => createMapPin(advert));
 };
 
-export {map, mainPinMarker, pinIcon, getDataOnSuccess, adverts};
+export {map, mainPinMarker, pinIcon, getDataOnSuccess};
