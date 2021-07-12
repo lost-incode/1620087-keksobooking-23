@@ -1,8 +1,11 @@
 import {deactivateForm, activateForm} from './valid-form.js';
 import {LAT_DEFAULT, LNG_DEFAULT} from './data.js';
+import {createSimilarAdElement} from './popup.js';
 document.querySelector('#address').value = `${LAT_DEFAULT.toFixed(5)}, ${LNG_DEFAULT.toFixed(5)}`;
 
 deactivateForm();
+
+const MAX_OFFERS = 10;
 
 const map = L.map('map-canvas').on('load', () => {
   activateForm();
@@ -46,4 +49,25 @@ mainPinMarker.on('moveend', () => {
   document.querySelector('#address').value = `${mainPinMarker.getLatLng().lat.toFixed(5)}, ${mainPinMarker.getLatLng().lng.toFixed(5)}`;
 });
 
-export {map, mainPinMarker, pinIcon};
+const createMapPin = ({author, offer, location}) => {
+  const lat = location.lat;
+  const lng = location.lng;
+  const marker = L.marker({
+    lat,
+    lng,
+  },
+  {
+    draggable: true,
+    icon: pinIcon,
+  });
+  marker.addTo(map).bindPopup(createSimilarAdElement(author, offer));
+};
+
+let adverts = [];
+
+const getDataOnSuccess = (data) => {
+  adverts = Array.from(data);
+  adverts.slice(0, MAX_OFFERS).forEach((advert) => createMapPin(advert));
+};
+
+export {map, mainPinMarker, pinIcon, getDataOnSuccess, adverts};

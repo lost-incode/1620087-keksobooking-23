@@ -1,16 +1,17 @@
 import {validateTimeIn,  validatePrices,  validateRooms} from './valid-form.js';
 import {mainPinMarker, map} from './map.js';
 import {LAT_DEFAULT, LNG_DEFAULT} from './data.js';
-import {sendData} from './api.js';
+import {request} from './api.js';
 const adForm = document.querySelector('.ad-form');
 
 const setUserFormSubmit = (onSuccess, onError) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    sendData(
+    request(
       () => onSuccess(),
       () => onError(),
+      adForm.method.toUpperCase(),
       new FormData(evt.target),
     );
   });

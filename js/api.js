@@ -1,42 +1,26 @@
-const getData = (onSuccess, onError) => {
+const Urls = {
+  GET: 'https://23.javascript.pages.academy/keksobooking/data',
+  POST: 'https://23.javascript.pages.academy/keksobooking',
+};
+
+const request = (onSuccess, onError, method, data) => {
   fetch(
-    'https://23.javascript.pages.academy/keksobooking/data',
+    Urls[method],
     {
-      method: 'GET',
-      credentials: 'same-origin',
+      method: method,
+      body: data,
     },
   )
     .then((response) => {
       if (response.ok) {
         return response.json();
       }
-
-      throw new Error(`${response.status} ${response.statusText}`);
-    }).then((data) => {
-      onSuccess(data);
-    }).catch((err) => {
-      onError(err);
-    });
-};
-
-const sendData = (onSuccess, onError, body) => {
-  fetch(
-    'https://23.javascript.pages.academy/keksobooking',
-    {
-      method: 'POST',
-      body,
-    },
-  )
-    .then((response) => {
-      if (response.ok) {
-        onSuccess();
-      } else {
-        onError();
-      }
-    })
-    .catch(() => {
+      // throw new Error(`${response.status} ${response.statusText}`);
+    }).then((offers) => {
+      onSuccess(offers);
+    }).catch(() => {
       onError();
     });
 };
 
-export {getData, sendData};
+export {request};
