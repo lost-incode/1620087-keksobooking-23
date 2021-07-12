@@ -39,7 +39,7 @@ const createSimilarAdElement = (author, offer) => {
   } else {
     adElement.querySelector('.popup__text--time').remove();
   }
-  if (offer.features.length > 0) {
+  if (offer.features) {
     const featuresOffer = adElement.querySelectorAll('.popup__feature');
     featuresOffer.forEach((item) => {
       if (offer.features.indexOf(item.classList[1].replace('popup__feature--', '')) === -1) {
@@ -54,7 +54,7 @@ const createSimilarAdElement = (author, offer) => {
   } else {
     adElement.querySelector('.popup__description').remove();
   }
-  if (offer.photos.length > 0) {
+  if (offer.photos) {
     const photosAd = adElement.querySelector('.popup__photos');
     offer.photos.forEach((photoSrc) => {
       const photoAd = photosAd.querySelector('.popup__photo').cloneNode(false);

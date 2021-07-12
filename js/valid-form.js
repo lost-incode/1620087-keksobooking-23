@@ -1,3 +1,6 @@
+import {LAT_DEFAULT, LNG_DEFAULT} from './data.js';
+import {resetForm} from './user-form.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
@@ -13,12 +16,7 @@ const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const type = adForm.querySelector('#type');
 const guestNumber = capacity.querySelectorAll('option');
-
-// const Times = {
-//   '12:00': ['12:00'],
-//   '13:00': ['13:00'],
-//   '14:00': ['14:00'],
-// };
+const resetButton = document.querySelector('.ad-form__reset');
 
 const MinPrices = {
   'bungalow': 0,
@@ -123,4 +121,9 @@ const activateForm = () => {
   elementsMapFiltersForm.forEach((element) => element.disabled = false);
 };
 
-export {deactivateForm, activateForm};
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm(LAT_DEFAULT, LNG_DEFAULT);
+});
+
+export {deactivateForm, activateForm,   validateTimeIn,  validatePrices,  validateRooms};

@@ -1028,3 +1028,24 @@ fieldset {
 .hidden {
   display: none;
 }
+
+.error-message {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 500px;
+  height: 70px;
+  background-color: #bb3838;
+  position: absolute;
+  top: 0;
+  left: 50px;
+  z-index: 500;
+  padding: 15px;
+}
+
+.error-message__text {
+  margin: 3px;
+  font-size: 20px;
+  line-height: 22px;
+  color: #bfcdcf;
+}
