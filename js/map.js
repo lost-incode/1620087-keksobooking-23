@@ -1,23 +1,13 @@
 import {deactivateForm, activateForm} from './valid-form.js';
 import {LAT_DEFAULT, LNG_DEFAULT} from './data.js';
 import {createSimilarAdElement} from './popup.js';
+import {filterData} from './map-filter.js';
+import {debounce} from './utils/debounce.js';
 
 const MAX_OFFERS = 10;
 const RERENDER_DELAY = 500;
-
 const mapFiltersForm = document.querySelector('.map__filters');
-const housingType = mapFiltersForm.querySelector('#housing-type');
-const housingPrice = mapFiltersForm.querySelector('#housing-price');
-const housingRooms = mapFiltersForm.querySelector('#housing-rooms');
-const housingGuests = mapFiltersForm.querySelector('#housing-guests');
-const housingFeatures = [
-  mapFiltersForm.querySelector('#filter-wifi'),
-  mapFiltersForm.querySelector('#filter-dishwasher'),
-  mapFiltersForm.querySelector('#filter-parking'),
-  mapFiltersForm.querySelector('#filter-washer'),
-  mapFiltersForm.querySelector('#filter-elevator'),
-  mapFiltersForm.querySelector('#filter-conditioner'),
-];
+
 document.querySelector('#address').value = `${LAT_DEFAULT.toFixed(5)}, ${LNG_DEFAULT.toFixed(5)}`;
 
 deactivateForm();
@@ -66,19 +56,21 @@ mainPinMarker.on('moveend', () => {
 
 let markers = [];
 
-const createMapPin = ({author, offer, location}) => {
-  const lat = location.lat;
-  const lng = location.lng;
-  const marker = L.marker({
-    lat,
-    lng,
-  },
-  {
-    draggable: true,
-    icon: pinIcon,
+const createMapPin = (elements) => {
+  Array.from(elements).forEach(({author, offer, location}) => {
+    const lat = location.lat;
+    const lng = location.lng;
+    const marker = L.marker({
+      lat,
+      lng,
+    },
+    {
+      draggable: true,
+      icon: pinIcon,
+    });
+    marker.addTo(map).bindPopup(createSimilarAdElement(author, offer));
+    markers.push(marker);
   });
-  marker.addTo(map).bindPopup(createSimilarAdElement(author, offer));
-  markers.push(marker);
 };
 
 let adverts = [];
@@ -88,72 +80,20 @@ const removeMapPin = () => {
   markers = [];
 };
 
-const filterPrice = (filterValue, element) => {
-  if (filterValue === 'middle') {
-    return element.offer.price >= 10000 &&  element.offer.price <= 50000;
-  } else if (filterValue === 'low') {
-    return element.offer.price <= 10000;
-  } else {
-    return element.offer.price >= 50000;
-  }
-};
-
-const getAdvertRank = (advert) => {
-  let rank = 0;
-  housingFeatures.forEach((housingFeature) => {
-    if (advert.offer.features && housingFeature.checked && advert.offer.features.includes(housingFeature.value)) {
-      rank += 1;
-    }
-  });
-  return rank;
-};
-
-const compareAdverts = (advertA, advertB) => {
-  const rankA = getAdvertRank(advertA);
-  const rankB = getAdvertRank(advertB);
-
-  return rankB - rankA;
-};
-
-const filterData = (elements) => {
-  let newAdverts = [];
-  let isCorrectElement = true;
-  for (let i = 0; i < elements.length; i++) {
-    if (housingType.value !== 'any' && elements[i].offer.type !== housingType.value) {
-      isCorrectElement = !isCorrectElement;
-    }
-    if (isCorrectElement && housingPrice.value !== 'any') {
-      isCorrectElement = filterPrice(housingPrice.value, elements[i]);
-    }
-    if (isCorrectElement && housingRooms.value !== 'any' && elements[i].offer.rooms !== Number(housingRooms.value)) {
-      isCorrectElement = !isCorrectElement;
-    }
-    if (isCorrectElement && housingGuests.value !== 'any' && elements[i].offer.guests !== Number(housingGuests.value)) {
-      isCorrectElement = !isCorrectElement;
-    }
-    if (isCorrectElement) {
-      newAdverts.push(elements[i]);
-    }
-    isCorrectElement = true;
-  }
-  newAdverts = newAdverts.sort(compareAdverts);
-  newAdverts.slice(0, MAX_OFFERS).forEach((advert) => createMapPin(advert));
-};
-
 const onMapFilterChange = () => {
-  setTimeout(removeMapPin(), RERENDER_DELAY);
-  setTimeout(filterData(adverts), RERENDER_DELAY);
+  removeMapPin();
+  createMapPin(filterData(adverts));
 };
 
 const getDataOnSuccess = (data) => {
   adverts = Array.from(data);
-  adverts.slice(0, MAX_OFFERS).forEach((advert) => createMapPin(advert));
+  createMapPin(adverts.slice(0, MAX_OFFERS));
   activateForm('map__filters');
-  mapFiltersForm.addEventListener('change', onMapFilterChange);
+  mapFiltersForm.addEventListener('change', debounce(onMapFilterChange), RERENDER_DELAY);
 };
 
 const resetMarkers = () => {
-  adverts.slice(0, MAX_OFFERS).forEach((advert) => createMapPin(advert));
+  createMapPin(adverts.slice(0, MAX_OFFERS));
 };
 
 export {map, mainPinMarker, pinIcon, getDataOnSuccess, resetMarkers};
