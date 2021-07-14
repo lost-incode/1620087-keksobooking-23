@@ -4,5 +4,4 @@ import {setUserFormSubmit} from './user-form.js';
 import {getDataOnSuccess} from './map.js';
 
 request(getDataOnSuccess, getDataOnError, 'GET');
-setUserFormSubmit();
 setUserFormSubmit(sendDataOnSuccess, sendDataOnError);
