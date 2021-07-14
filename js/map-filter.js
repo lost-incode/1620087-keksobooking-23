@@ -41,9 +41,8 @@ const filterRules = {
     return checkListElements.every((checkbox) => {
       if(data.offer.features) {
         return data.offer.features.includes(checkbox.value);
-      } else {
-        return false;
       }
+      return false;
     });
   },
 };
