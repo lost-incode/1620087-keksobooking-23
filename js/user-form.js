@@ -10,6 +10,8 @@ const adFormPhotoInput = adForm.querySelector('#images');
 const IMAGE_WIDTH = 70;
 const IMAGE_HEIGHT = 70;
 
+const defaultSrcAvatar = adFormHeaderPreview.querySelector('img').src;
+
 const onPreviewAvatar = () => {
   const image = adFormHeaderPreview.querySelector('img');
   const file = adFormHeaderPreviewInput.files[0];
@@ -44,6 +46,13 @@ const onPreviewImage = () => {
 
 adFormPhotoInput.addEventListener('change', () => onPreviewImage());
 
+const resetPreview = () => {
+  adFormHeaderPreview.querySelector('img').src = defaultSrcAvatar;
+  if (adFormPhoto.firstChild) {
+    adFormPhoto.removeChild(adFormPhoto.firstChild);
+  }
+};
+
 const setUserFormSubmit = (onSuccess, onError) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -67,6 +76,7 @@ const resetForm = (lat, lng) => {
   validateTimeIn();
   validatePrices();
   validateRooms();
+  resetPreview();
 };
 
 export {setUserFormSubmit, resetForm};
