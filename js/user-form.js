@@ -77,8 +77,8 @@ const resetForm = (lat, lng) => {
   validatePrices();
   validateRooms();
   resetPreview();
-  if (document.querySelector('.leaflet-popup')) {
-    document.querySelector('.leaflet-popup').remove();
+  if (document.querySelector('.popup')) {
+    document.querySelector('.popup').remove();
   }
 };
 
