@@ -88,7 +88,7 @@ const onMapFilterChange = () => {
 };
 
 const getDataOnSuccess = (data) => {
-  adverts = Array.from(data);
+  adverts = data.slice();
   createMapPin(adverts.slice(0, MAX_OFFERS));
   activateForm('map__filters');
   mapFiltersForm.addEventListener('change', debounce(onMapFilterChange), RERENDER_DELAY);
