@@ -90,9 +90,6 @@ const validateRooms = () => {
   const roomValue = roomNumber.value;
 
   guestNumber.forEach((guest) => {
-    //проверяем, есть ли в массиве, который является значением ключа объекта
-    //(ключ - выбранное пользоватем количество комнат),
-    //количество гостей - guest.value. если есть - false, иначе - true
     const isDisabled = (NumberOfGuests[roomValue].indexOf(guest.value) === -1);
     guest.selected = NumberOfGuests[roomValue][0] === guest.value;
     guest.disabled = isDisabled;

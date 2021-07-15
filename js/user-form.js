@@ -1,6 +1,6 @@
 import {validateTimeIn,  validatePrices,  validateRooms} from './valid-form.js';
 import {mainPinMarker, map, resetMarkers} from './map.js';
-import {LAT_DEFAULT, LNG_DEFAULT} from './data.js';
+import {LAT_DEFAULT, LNG_DEFAULT, MAP_ZOOM} from './data.js';
 import {request} from './api.js';
 const adForm = document.querySelector('.ad-form');
 const adFormHeaderPreviewInput = adForm.querySelector('#avatar');
@@ -72,7 +72,7 @@ const resetForm = (lat, lng) => {
   document.querySelector('.ad-form').reset();
   document.querySelector('#address').value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
   mainPinMarker.setLatLng({lat: LAT_DEFAULT, lng: LNG_DEFAULT});
-  map.setView({lat: LAT_DEFAULT, lng: LNG_DEFAULT}, 12);
+  map.setView({lat: LAT_DEFAULT, lng: LNG_DEFAULT}, MAP_ZOOM);
   validateTimeIn();
   validatePrices();
   validateRooms();
