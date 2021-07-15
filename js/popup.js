@@ -61,7 +61,7 @@ const createSimilarAdElement = (author, offer) => {
       photoAd.src = photoSrc;
       photosAd.appendChild(photoAd);
     });
-    photosAd.querySelector('.popup__photo').remove(); //Удаляет вывод первого img, в котором нет src
+    photosAd.querySelector('.popup__photo').remove();
   } else {
     adElement.querySelector('.popup__photos').remove();
   }
