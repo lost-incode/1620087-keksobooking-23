@@ -1,4 +1,4 @@
-import {numDecline} from './util.js';
+import {numDeclineGuests, numDecline} from './util.js';
 const similarAdTemplate = document.querySelector('#card').content.querySelector('.popup');
 const offerTypeTranslation = {
   'flat': 'Квартира',
@@ -31,7 +31,7 @@ const createSimilarAdElement = (author, offer) => {
     adElement.querySelector('.popup__type').remove();
   }
   if ((offer.rooms) && (offer.guests)) {
-    adElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} ${numDecline(offer.guests, 'гостя', 'гостей')}`;
+    adElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} ${numDecline(offer.rooms, 'комната', 'комнаты', 'комнат')} для ${offer.guests} ${numDeclineGuests(offer.guests, 'гостя', 'гостей')}`;
   } else {
     adElement.querySelector('.popup__text--capacity').remove();
   }

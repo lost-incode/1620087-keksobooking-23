@@ -39,7 +39,7 @@ const sendDataOnError = () => {
   document.removeEventListener('keydown', (evt) => onEscapeKeydown(evt, errorElement));
 };
 
-const numDecline = (num, genitiveSingular, genitivePlural) => {
+const numDeclineGuests = (num, genitiveSingular, genitivePlural) => {
   if (num === 1) {
     return genitiveSingular;
   } else {
@@ -47,4 +47,14 @@ const numDecline = (num, genitiveSingular, genitivePlural) => {
   }
 };
 
-export {getDataOnError, sendDataOnSuccess, sendDataOnError, numDecline};
+const numDecline = (num, nominative, genitiveSingular, genitivePlural) => {
+  if ((num % 100 >= 11) && (num % 100 <= 20) || (num % 10 >= 5) || (num % 10 === 0)) {
+    return genitivePlural;
+  } else if (num % 10 === 1) {
+    return nominative;
+  } else {
+    return genitiveSingular;
+  }
+};
+
+export {getDataOnError, sendDataOnSuccess, sendDataOnError, numDeclineGuests, numDecline};
