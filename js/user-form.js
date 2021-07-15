@@ -1,15 +1,15 @@
 import {validateTimeIn,  validatePrices,  validateRooms} from './valid-form.js';
 import {mainPinMarker, map, resetMarkers} from './map.js';
-import {LAT_DEFAULT, LNG_DEFAULT, MAP_ZOOM} from './data.js';
+import {LAT_DEFAULT, LNG_DEFAULT, MAP_ZOOM, PRECISION_NUMBER} from './data.js';
 import {request} from './api.js';
+
+const IMAGE_WIDTH = 70;
+const IMAGE_HEIGHT = 70;
 const adForm = document.querySelector('.ad-form');
 const adFormHeaderPreviewInput = adForm.querySelector('#avatar');
 const adFormHeaderPreview = adForm.querySelector('.ad-form-header__preview');
 const adFormPhoto = adForm.querySelector('.ad-form__photo');
 const adFormPhotoInput = adForm.querySelector('#images');
-const IMAGE_WIDTH = 70;
-const IMAGE_HEIGHT = 70;
-
 const defaultSrcAvatar = adFormHeaderPreview.querySelector('img').src;
 
 const onPreviewAvatar = () => {
@@ -70,7 +70,7 @@ const resetForm = (lat, lng) => {
   document.querySelector('.map__filters').reset();
   resetMarkers();
   document.querySelector('.ad-form').reset();
-  document.querySelector('#address').value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  document.querySelector('#address').value = `${lat.toFixed(PRECISION_NUMBER)}, ${lng.toFixed(PRECISION_NUMBER)}`;
   mainPinMarker.setLatLng({lat: LAT_DEFAULT, lng: LNG_DEFAULT});
   map.setView({lat: LAT_DEFAULT, lng: LNG_DEFAULT}, MAP_ZOOM);
   validateTimeIn();

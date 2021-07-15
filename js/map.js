@@ -1,5 +1,5 @@
 import {deactivateForm, activateForm} from './valid-form.js';
-import {LAT_DEFAULT, LNG_DEFAULT, MAP_ZOOM} from './data.js';
+import {LAT_DEFAULT, LNG_DEFAULT, MAP_ZOOM, PRECISION_NUMBER} from './data.js';
 import {createSimilarAdElement} from './popup.js';
 import {filterData} from './map-filter.js';
 import {debounce} from './utils/debounce.js';
@@ -10,7 +10,7 @@ const TITLE_LAYER_LINK = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const TITLE_LAYER_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>';
 const mapFiltersForm = document.querySelector('.map__filters');
 
-document.querySelector('#address').value = `${LAT_DEFAULT.toFixed(5)}, ${LNG_DEFAULT.toFixed(5)}`;
+document.querySelector('#address').value = `${LAT_DEFAULT.toFixed(PRECISION_NUMBER)}, ${LNG_DEFAULT.toFixed(PRECISION_NUMBER)}`;
 
 deactivateForm();
 
