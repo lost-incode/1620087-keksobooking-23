@@ -17,7 +17,7 @@ const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const type = adForm.querySelector('#type');
 const guestNumber = capacity.querySelectorAll('option');
-const resetButton = document.querySelector('.ad-form__reset');
+const resetButton = adForm.querySelector('.ad-form__reset');
 
 const MinPrices = {
   'bungalow': 0,
