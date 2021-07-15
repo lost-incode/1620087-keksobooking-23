@@ -39,4 +39,12 @@ const sendDataOnError = () => {
   document.removeEventListener('keydown', (evt) => onEscapeKeydown(evt, errorElement));
 };
 
-export {getDataOnError, sendDataOnSuccess, sendDataOnError};
+const numDecline = (num, genitiveSingular, genitivePlural) => {
+  if (num === 1) {
+    return genitiveSingular;
+  } else {
+    return genitivePlural;
+  }
+};
+
+export {getDataOnError, sendDataOnSuccess, sendDataOnError, numDecline};
