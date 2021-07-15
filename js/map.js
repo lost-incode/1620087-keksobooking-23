@@ -65,7 +65,7 @@ const createMapPin = (elements) => {
       lng,
     },
     {
-      draggable: true,
+      draggable: false,
       icon: pinIcon,
     });
     marker.addTo(map).bindPopup(createSimilarAdElement(author, offer));
