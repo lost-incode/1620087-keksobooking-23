@@ -15,6 +15,7 @@ const request = (onSuccess, onError, method, data) => {
       if (response.ok) {
         return response.json();
       }
+      throw new Error(`${response.status} ${response.statusText}`);
     }).then((offers) => {
       onSuccess(offers);
     }).catch(() => {

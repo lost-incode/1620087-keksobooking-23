@@ -52,7 +52,7 @@ L.tileLayer(
   },
 ).addTo(map);
 
-mainPinMarker.on('moveend', () => {
+mainPinMarker.on('move', () => {
   document.querySelector('#address').value = `${mainPinMarker.getLatLng().lat.toFixed(5)}, ${mainPinMarker.getLatLng().lng.toFixed(5)}`;
 });
 
