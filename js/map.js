@@ -1,4 +1,4 @@
-import {deactivateForm, activateForm} from './valid-form.js';
+import {deactivateForm, activateAdForm, activateMapFilters} from './valid-form.js';
 import {LAT_DEFAULT, LNG_DEFAULT, MAP_ZOOM, PRECISION_NUMBER} from './data.js';
 import {createSimilarAdElement} from './popup.js';
 import {filterData} from './map-filter.js';
@@ -15,7 +15,7 @@ document.querySelector('#address').value = `${LAT_DEFAULT.toFixed(PRECISION_NUMB
 deactivateForm();
 
 const map = L.map('map-canvas').on('load', () => {
-  activateForm('ad-form');
+  activateAdForm();
 }).setView({
   lat: LAT_DEFAULT,
   lng: LNG_DEFAULT,
@@ -90,7 +90,7 @@ const onMapFilterChange = () => {
 const getDataOnSuccess = (data) => {
   adverts = data.slice();
   createMapPin(adverts.slice(0, MAX_OFFERS));
-  activateForm('map__filters');
+  activateMapFilters();
   mapFiltersForm.addEventListener('change', debounce(onMapFilterChange), RERENDER_DELAY);
 };
 

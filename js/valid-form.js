@@ -52,8 +52,6 @@ const validateTimeIn = () => {
   timeOut.value = timeIn.value;
 };
 
-validateTimeIn();
-
 const onTimeInChange = () => {
   validateTimeIn();
 };
@@ -63,8 +61,6 @@ timeIn.addEventListener('change', onTimeInChange);
 const validateTimeOut = () => {
   timeIn.value = timeOut.value;
 };
-
-validateTimeOut();
 
 const onTimeOutChange = () => {
   validateTimeOut();
@@ -112,14 +108,14 @@ const deactivateForm = () => {
   elementsMapFiltersForm.forEach((element) => element.disabled = true);
 };
 
-const activateForm = (formClass) => {
-  if (formClass === ADFORM_CLASS) {
-    adForm.classList.remove('ad-form--disabled');
-    fieldsetsAdForm.forEach((fieldset) => fieldset.disabled = false);
-  } else {
-    mapFiltersForm.classList.remove('map__filters--disabled');
-    elementsMapFiltersForm.forEach((element) => element.disabled = false);
-  }
+const activateAdForm = () => {
+  adForm.classList.remove('ad-form--disabled');
+  fieldsetsAdForm.forEach((fieldset) => fieldset.disabled = false);
+};
+
+const activateMapFilters = () => {
+  mapFiltersForm.classList.remove('map__filters--disabled');
+  elementsMapFiltersForm.forEach((element) => element.disabled = false);
 };
 
 resetButton.addEventListener('click', (evt) => {
@@ -127,4 +123,4 @@ resetButton.addEventListener('click', (evt) => {
   resetForm(LAT_DEFAULT, LNG_DEFAULT);
 });
 
-export {deactivateForm, activateForm,   validateTimeIn,  validatePrices,  validateRooms};
+export {deactivateForm, activateAdForm, activateMapFilters, validateTimeIn,  validatePrices,  validateRooms};
