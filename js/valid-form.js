@@ -3,7 +3,6 @@ import {resetForm} from './user-form.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-const ADFORM_CLASS = 'ad-form';
 
 const adForm = document.querySelector('.ad-form');
 const mapFiltersForm = document.querySelector('.map__filters');
