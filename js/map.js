@@ -1,14 +1,16 @@
 import {deactivateForm, activateForm} from './valid-form.js';
-import {LAT_DEFAULT, LNG_DEFAULT} from './data.js';
+import {LAT_DEFAULT, LNG_DEFAULT, MAP_ZOOM, PRECISION_NUMBER} from './data.js';
 import {createSimilarAdElement} from './popup.js';
 import {filterData} from './map-filter.js';
 import {debounce} from './utils/debounce.js';
 
 const MAX_OFFERS = 10;
 const RERENDER_DELAY = 500;
+const TITLE_LAYER_LINK = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const TITLE_LAYER_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>';
 const mapFiltersForm = document.querySelector('.map__filters');
 
-document.querySelector('#address').value = `${LAT_DEFAULT.toFixed(5)}, ${LNG_DEFAULT.toFixed(5)}`;
+document.querySelector('#address').value = `${LAT_DEFAULT.toFixed(PRECISION_NUMBER)}, ${LNG_DEFAULT.toFixed(PRECISION_NUMBER)}`;
 
 deactivateForm();
 
@@ -17,7 +19,7 @@ const map = L.map('map-canvas').on('load', () => {
 }).setView({
   lat: LAT_DEFAULT,
   lng: LNG_DEFAULT,
-}, 12);
+}, MAP_ZOOM);
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
@@ -44,9 +46,9 @@ const mainPinMarker = L.marker(
 mainPinMarker.addTo(map);
 
 L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  TITLE_LAYER_LINK,
   {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
+    attribution: TITLE_LAYER_ATTRIBUTION,
   },
 ).addTo(map);
 
@@ -65,7 +67,7 @@ const createMapPin = (elements) => {
       lng,
     },
     {
-      draggable: true,
+      draggable: false,
       icon: pinIcon,
     });
     marker.addTo(map).bindPopup(createSimilarAdElement(author, offer));
@@ -86,7 +88,7 @@ const onMapFilterChange = () => {
 };
 
 const getDataOnSuccess = (data) => {
-  adverts = Array.from(data);
+  adverts = data.slice();
   createMapPin(adverts.slice(0, MAX_OFFERS));
   activateForm('map__filters');
   mapFiltersForm.addEventListener('change', debounce(onMapFilterChange), RERENDER_DELAY);

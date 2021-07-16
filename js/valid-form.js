@@ -17,7 +17,7 @@ const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const type = adForm.querySelector('#type');
 const guestNumber = capacity.querySelectorAll('option');
-const resetButton = document.querySelector('.ad-form__reset');
+const resetButton = adForm.querySelector('.ad-form__reset');
 
 const MinPrices = {
   'bungalow': 0,
@@ -90,9 +90,6 @@ const validateRooms = () => {
   const roomValue = roomNumber.value;
 
   guestNumber.forEach((guest) => {
-    //проверяем, есть ли в массиве, который является значением ключа объекта
-    //(ключ - выбранное пользоватем количество комнат),
-    //количество гостей - guest.value. если есть - false, иначе - true
     const isDisabled = (NumberOfGuests[roomValue].indexOf(guest.value) === -1);
     guest.selected = NumberOfGuests[roomValue][0] === guest.value;
     guest.disabled = isDisabled;
