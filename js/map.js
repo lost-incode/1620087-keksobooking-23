@@ -95,6 +95,7 @@ const getDataOnSuccess = (data) => {
 };
 
 const resetMarkers = () => {
+  removeMapPin();
   createMapPin(adverts.slice(0, MAX_OFFERS));
 };
 
