@@ -1,8 +1,5 @@
 import {resetForm} from './user-form.js';
 import {LAT_DEFAULT, LNG_DEFAULT, ESC_KEYCODE_TEXT, ESC_KEYCODE_SHORT_TEXT} from './data.js';
-const NOMINATIVE_INDEX = 2;
-const GENITIVE_SINGULAR_INDEX = 0;
-const GENITIVE_PLURAL_INDEX = 1;
 const mapCanvas = document.querySelector('.map__canvas');
 const errorMessage = document.querySelector('#error-message').content.querySelector('.error-message');
 const successSubmitForm = document.querySelector('#success').content.querySelector('.success');
@@ -42,20 +39,17 @@ const sendDataOnError = () => {
   document.removeEventListener('keydown', (evt) => onEscapeKeydown(evt, errorElement));
 };
 
-const setNumDeclination = (num, ...args) => {
-  if (args.length === 3) {
-    if ((num % 100 >= 11) && (num % 100 <= 20) || (num % 10 >= 5) || (num % 10 === 0)) {
-      return args[GENITIVE_PLURAL_INDEX];
-    } else if (num % 10 === 1) {
-      return args[NOMINATIVE_INDEX];
-    } else {
-      return args[GENITIVE_SINGULAR_INDEX];
-    }
-  }
-  if (num === 1) {
-    return args[GENITIVE_SINGULAR_INDEX];
+const setNumDeclination = (num, nominative, genitiveSingular, genitivePlural) => {
+  if(num > 10 && (Math.round((num % 100) / 10)) === 1){
+    return genitivePlural;
   } else {
-    return args[GENITIVE_PLURAL_INDEX];
+    switch(num % 10){
+      case 1: return nominative;
+      case 2:
+      case 3:
+      case 4: return genitiveSingular;
+    }
+    return genitivePlural;
   }
 };
 

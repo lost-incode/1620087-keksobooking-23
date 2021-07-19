@@ -100,21 +100,25 @@ const onRoomNumberChange = () => {
 
 roomNumber.addEventListener('change', onRoomNumberChange);
 
+const changeDisabledAttribute = (isDisabled, elementsArray) => {
+  elementsArray.forEach((element) => element.disabled = isDisabled);
+};
+
 const deactivateForm = () => {
   adForm.classList.add('ad-form--disabled');
-  fieldsetsAdForm.forEach((fieldset) => fieldset.disabled = true);
+  changeDisabledAttribute(true, fieldsetsAdForm);
   mapFiltersForm.classList.add('map__filters--disabled');
-  elementsMapFiltersForm.forEach((element) => element.disabled = true);
+  changeDisabledAttribute(true, elementsMapFiltersForm);
 };
 
 const activateAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
-  fieldsetsAdForm.forEach((fieldset) => fieldset.disabled = false);
+  changeDisabledAttribute(false, fieldsetsAdForm);
 };
 
 const activateMapFilters = () => {
   mapFiltersForm.classList.remove('map__filters--disabled');
-  elementsMapFiltersForm.forEach((element) => element.disabled = false);
+  changeDisabledAttribute(false, elementsMapFiltersForm);
 };
 
 resetButton.addEventListener('click', (evt) => {

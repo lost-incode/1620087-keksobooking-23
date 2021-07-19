@@ -31,7 +31,7 @@ const createSimilarAdElement = (author, offer) => {
     adElement.querySelector('.popup__type').remove();
   }
   if ((offer.rooms) && (offer.guests)) {
-    adElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} ${setNumDeclination(offer.rooms, 'комнаты', 'комнат', 'комната')} для ${offer.guests} ${setNumDeclination(offer.guests, 'гостя', 'гостей')}`;
+    adElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} ${setNumDeclination(offer.rooms, 'комната', 'комнаты', 'комнат')} для ${offer.guests} ${setNumDeclination(offer.guests, 'гость', 'гостей', 'гостей')}`;
   } else {
     adElement.querySelector('.popup__text--capacity').remove();
   }

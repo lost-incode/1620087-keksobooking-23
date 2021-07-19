@@ -6,6 +6,7 @@ import {debounce} from './utils/debounce.js';
 
 const MAX_OFFERS = 10;
 const RERENDER_DELAY = 500;
+let isMapLoaded = false;
 const TITLE_LAYER_LINK = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const TITLE_LAYER_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>';
 const mapFiltersForm = document.querySelector('.map__filters');
@@ -16,6 +17,7 @@ deactivateForm();
 
 const map = L.map('map-canvas').on('load', () => {
   activateAdForm();
+  isMapLoaded = true;
 }).setView({
   lat: LAT_DEFAULT,
   lng: LNG_DEFAULT,
@@ -43,7 +45,9 @@ const mainPinMarker = L.marker(
     icon: mainPinIcon,
   },
 );
-mainPinMarker.addTo(map);
+if (isMapLoaded) {
+  mainPinMarker.addTo(map);
+}
 
 L.tileLayer(
   TITLE_LAYER_LINK,
@@ -89,7 +93,9 @@ const onMapFilterChange = () => {
 
 const getDataOnSuccess = (data) => {
   adverts = data.slice();
-  createMapPin(adverts.slice(0, MAX_OFFERS));
+  if (isMapLoaded) {
+    createMapPin(adverts.slice(0, MAX_OFFERS));
+  }
   activateMapFilters();
   mapFiltersForm.addEventListener('change', debounce(onMapFilterChange), RERENDER_DELAY);
 };
