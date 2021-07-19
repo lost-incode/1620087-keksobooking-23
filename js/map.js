@@ -4,6 +4,10 @@ import {createSimilarAdElement} from './popup.js';
 import {filterData} from './map-filter.js';
 import {debounce} from './utils/debounce.js';
 
+const MAIN_PIN_ICON_SIZE = 52;
+const MAIN_PIN_ICON_ANCHOR = 26;
+const PIN_ICON_SIZE = 40;
+const PIN_ICON_ANCHOR = 20;
 const MAX_OFFERS = 10;
 const RERENDER_DELAY = 500;
 let isMapLoaded = false;
@@ -25,14 +29,14 @@ const map = L.map('map-canvas').on('load', () => {
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: [MAIN_PIN_ICON_SIZE, MAIN_PIN_ICON_SIZE],
+  iconAnchor: [MAIN_PIN_ICON_ANCHOR, MAIN_PIN_ICON_SIZE],
 });
 
 const pinIcon = L.icon({
   iconUrl: 'img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [PIN_ICON_SIZE, PIN_ICON_SIZE],
+  iconAnchor: [PIN_ICON_ANCHOR, PIN_ICON_SIZE],
 });
 
 const mainPinMarker = L.marker(
