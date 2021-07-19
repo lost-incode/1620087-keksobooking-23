@@ -18,13 +18,19 @@ const onEscapeKeydown = (event, element) => {
   }
 };
 
+const onClickSuccessMessage = (element) => {
+  element.remove();
+  resetForm(LAT_DEFAULT, LNG_DEFAULT);
+};
+
+const onClickErrorMessage = (element) => {
+  element.remove();
+};
+
 const sendDataOnSuccess = () => {
   const successElement = successSubmitForm.cloneNode(true);
   document.addEventListener('keydown', (evt) => onEscapeKeydown(evt, successElement));
-  successElement.addEventListener('click', () => {
-    successElement.remove();
-    resetForm(LAT_DEFAULT, LNG_DEFAULT);
-  });
+  successElement.addEventListener('click', () => onClickSuccessMessage(successElement));
   document.body.append(successElement);
   document.removeEventListener('keydown', (evt) => onEscapeKeydown(evt, successElement));
 };
@@ -32,9 +38,8 @@ const sendDataOnSuccess = () => {
 const sendDataOnError = () => {
   const errorElement = errorSubmitForm.cloneNode(true);
   document.addEventListener('keydown', (evt) => onEscapeKeydown(evt, errorElement));
-  errorElement.querySelector('.error__button').addEventListener('click', () => {
-    errorElement.remove();
-  });
+  const errorButton = errorElement.querySelector('.error__button');
+  errorButton.addEventListener('click', () => onClickErrorMessage(errorElement));
   document.body.append(errorElement);
   document.removeEventListener('keydown', (evt) => onEscapeKeydown(evt, errorElement));
 };
