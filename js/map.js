@@ -2,10 +2,7 @@ import {deactivateForm, activateAdForm, activateMapFilters} from './valid-form.j
 import {LAT_DEFAULT, LNG_DEFAULT, MAP_ZOOM, PRECISION_NUMBER} from './data.js';
 const mapCanvas = document.querySelector('.map__canvas');
 const errorMessage = document.querySelector('#error-message').content.querySelector('.error-message');
-// import {getDataOnError} from './util.js';
 import {request} from './api.js';
-// import {getDataOnSuccess} from './map.js';
-
 import {createSimilarAdElement} from './popup.js';
 import {filterData} from './map-filter.js';
 import {debounce} from './utils/debounce.js';

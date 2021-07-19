@@ -1,7 +1,5 @@
 import {resetForm} from './user-form.js';
 import {LAT_DEFAULT, LNG_DEFAULT, ESC_KEYCODE_TEXT, ESC_KEYCODE_SHORT_TEXT} from './data.js';
-// const mapCanvas = document.querySelector('.map__canvas');
-// const errorMessage = document.querySelector('#error-message').content.querySelector('.error-message');
 const successSubmitForm = document.querySelector('#success').content.querySelector('.success');
 const errorSubmitForm = document.querySelector('#error').content.querySelector('.error');
 
