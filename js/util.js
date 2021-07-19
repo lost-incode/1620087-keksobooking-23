@@ -11,37 +11,51 @@ const getDataOnError = () => {
   mapCanvas.appendChild(errorElement);
 };
 
-const onEscapeKeydown = (event, element) => {
-  if (event.key === ESC_KEYCODE_TEXT || event.key === ESC_KEYCODE_SHORT_TEXT) {
-    element.remove();
-    resetForm(LAT_DEFAULT, LNG_DEFAULT);
+const removeOverlay = () => {
+  const popup = document.querySelector('.popup_overlay');
+
+  if (popup) {
+    popup.remove();
   }
 };
 
-const onClickSuccessMessage = (element) => {
-  element.remove();
-  resetForm(LAT_DEFAULT, LNG_DEFAULT);
+const onEscapeKeydown = (evt) => {
+  if (evt.key === ESC_KEYCODE_TEXT || evt.key === ESC_KEYCODE_SHORT_TEXT) {
+    removeOverlay();
+    resetForm(LAT_DEFAULT, LNG_DEFAULT);
+    document.removeEventListener('keydown', onEscapeKeydown);
+  }
 };
 
-const onClickErrorMessage = (element) => {
-  element.remove();
+const onClickSuccessMessage = () => {
+  removeOverlay();
+  resetForm(LAT_DEFAULT, LNG_DEFAULT);
+  document.removeEventListener('keydown', onEscapeKeydown);
+};
+
+const onClickErrorMessage = () => {
+  removeOverlay();
+  document.removeEventListener('keydown', onEscapeKeydown);
 };
 
 const sendDataOnSuccess = () => {
   const successElement = successSubmitForm.cloneNode(true);
-  document.addEventListener('keydown', (evt) => onEscapeKeydown(evt, successElement));
-  successElement.addEventListener('click', () => onClickSuccessMessage(successElement));
+  successElement.classList.add('popup_overlay');
+
+  document.addEventListener('keydown', onEscapeKeydown);
+  successElement.addEventListener('click', onClickSuccessMessage);
+
   document.body.append(successElement);
-  document.removeEventListener('keydown', (evt) => onEscapeKeydown(evt, successElement));
 };
 
 const sendDataOnError = () => {
   const errorElement = errorSubmitForm.cloneNode(true);
-  document.addEventListener('keydown', (evt) => onEscapeKeydown(evt, errorElement));
+  errorElement.classList.add('popup_overlay');
+
+  document.addEventListener('keydown', onEscapeKeydown);
   const errorButton = errorElement.querySelector('.error__button');
-  errorButton.addEventListener('click', () => onClickErrorMessage(errorElement));
+  errorButton.addEventListener('click', onClickErrorMessage);
   document.body.append(errorElement);
-  document.removeEventListener('keydown', (evt) => onEscapeKeydown(evt, errorElement));
 };
 
 const setNumDeclination = (num, nominative, genitiveSingular, genitivePlural) => {
